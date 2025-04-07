@@ -13,7 +13,7 @@ oak_agent = Agent(
 )
 
 @oak_agent.tool_plain
-async def search_uberon(term: str) -> List[Tuple[str, str]]:
+def search_uberon(term: str) -> List[Tuple[str, str]]:
     """
     Search the UBERON ontology for a term.
 
@@ -41,7 +41,6 @@ async def search_uberon(term: str) -> List[Tuple[str, str]]:
 @click.argument('query', default='What is the UBERON ID for the CNS?')
 def main(query: str):
     """Run the oak agent with the given query."""
-    oak_agent = create_oak_agent()
     result = oak_agent.run_sync(query)
     print(result.data)
 

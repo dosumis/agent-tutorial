@@ -5,9 +5,16 @@ We will be walking through the process of creating an ontology agent.
 ## Pre-requisites
 
 1. Some knowledge of Python
-2. `uv` installed
-3. An IDE or text editor (cursor recommended)
+2. `uv` installed locally
+3. An IDE or text editor (I will use cursor in the walk-through, but any should work)
 4. An OpenAI API key, with `OPENAI_API_KEY` set
+    * All developers in Monarch should already have a key
+    * LBNL developers can use cborg, see instructions below
+    * It should be possible to modify examples to use a different model, but we won't covert this in the interests of time
+    * Otherwise sign up to get an OpenAI key
+
+Additionally, some knowledge of ontologies like UBERON and the capabilities of the [OAK](https://incatools.github.io/ontology-access-kit/)
+will help.
 
 ## Initializing the project
 
@@ -191,4 +198,35 @@ And run it:
 
 ```
 uv run src/agent_tutorial/annotator_agent.py 
+```
+
+## Using a Proxy (e.g. CBORG)
+
+```python
+cborg_api_key = os.environ.get("CBORG_API_KEY")
+
+model = OpenAIModel(
+    "anthropic/claude-sonnet",
+    provider=OpenAIProvider(
+        base_url="https://api.cborg.lbl.gov",
+        api_key=cborg_api_key),
+)
+```
+
+then, in place of code like:
+
+```python
+agent = Agent(  
+    'openai:gpt-4o',
+    system_prompt='Be concise, reply with one sentence.',  
+)
+```
+
+Do this:
+
+```python
+agent = Agent(  
+    model,
+    system_prompt='Be concise, reply with one sentence.',  
+)
 ```

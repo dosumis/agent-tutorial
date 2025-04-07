@@ -18,7 +18,8 @@ class TextAnnotationResult(BaseModel):
     annotations: List[TextAnnotation]
 
 annotator_agent = Agent(  
-    'claude-3-7-sonnet-latest',
+    #'claude-3-7-sonnet-latest',
+    'openai:gpt-4o',
     system_prompt="""
     Extract all uberon terms from the text. Return the as a list of annotations.
     Be sure to include all spans mentioning anatomical structures; if you cannot
