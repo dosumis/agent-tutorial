@@ -52,6 +52,13 @@ uv add pydantic-ai
 
 ## PART 1: Create a basic agent
 
+We will be using [pydantic-ai](https://ai.pydantic.dev/).
+
+![img](https://ai.pydantic.dev/img/pydantic-ai-light.svg#only-light)
+
+There are many other agent frameworks available: langgraph, crew-ai, smolagents. Each has its own strengths and weaknesses and it is often
+a matter of preference. 
+
 ### Create `hello_world.py`
 
 Create this in [src/agent_tutorial/hello_world.py](src/agent_tutorial/hello_world.py)
