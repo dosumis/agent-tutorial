@@ -1,6 +1,10 @@
 # Monarch Agent Tutorial
 
-We will be walking through the process of creating an ontology agent.
+We will be walking through the process of creating an ontology agent. The goal is to empower you as a Python developer to turbo-charge your applications with AI.
+
+If you are curious about AI but feel intimidated by the confusing range of tools and acronyms out there, **this tutorial is meant for you**!
+
+The intended audience is the OBO and Monarch communities, but all are welcome!
 
 ## Pre-requisites
 
@@ -230,3 +234,7 @@ agent = Agent(
     system_prompt='Be concise, reply with one sentence.',  
 )
 ```
+
+## Next Steps: Aurelian
+
+After this, we invite you to check out [aurelian](https://github.com/monarch-initiative/aurelian) and to try some of the ready-made agents and tools, and to contribute to this library!
