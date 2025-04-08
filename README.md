@@ -98,6 +98,8 @@ __TROUBLESHOOTING__
 
 ### Add OAK as a dependency
 
+Next we will add [OAK](https://incatools.github.io/ontology-access-kit/)
+
 ```
 uv add oaklib
 ```
@@ -151,6 +153,8 @@ async def search_uberon(term: str) -> List[Tuple[str, str]]:
     return labels
 ```
 
+Here we are using the OAK OLS adapter, configured to query [Uberon on OLS](https://www.ebi.ac.uk/ols4/ontologies/uberon)
+
 We can test this with
 
 ```python
@@ -163,6 +167,8 @@ And run it:
 ```
 uv run src/agent_tutorial/oak_agent.py 
 ```
+
+Try this with some other terms. How well does it work?
 
 ## PART 3: Create an annotator agent
 
