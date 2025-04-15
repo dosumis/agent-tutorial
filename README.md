@@ -6,6 +6,12 @@ If you are curious about AI but feel intimidated by the confusing range of tools
 
 The intended audience is the OBO and Monarch communities, but all are welcome!
 
+## Recording
+
+This tutorial was a part of [the Monarch OBO Academy training](https://oboacademy.github.io/obook/courses/monarch-obo-training/).
+
+See the [recording on YouTube](https://www.youtube.com/watch?v=Ml0YVjKnZnE)
+
 ## Pre-requisites
 
 1. Some knowledge of Python
