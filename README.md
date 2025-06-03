@@ -123,6 +123,7 @@ Then create a file [src/agent_tutorial/oak_agent.py](src/agent_tutorial/oak_agen
 We will make an agent, as before
 
 ```python
+from pydantic_ai import Agent
 oak_agent = Agent(  
     'openai:gpt-4o',
     system_prompt="""
@@ -134,6 +135,8 @@ oak_agent = Agent(
 But this time we will give an agent a *tool*
 
 ```python
+from oaklib import get_adapter
+
 @oak_agent.tool_plain
 async def search_uberon(term: str) -> List[Tuple[str, str]]:
     """
