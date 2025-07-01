@@ -23,7 +23,7 @@ See the [recording on YouTube](https://www.youtube.com/watch?v=Ml0YVjKnZnE)
     * It should be possible to modify examples to use a different model, but we won't covert this in the interests of time
     * Otherwise sign up to get an OpenAI key
 
-Additionally, some knowledge of ontologies like UBERON and the capabilities of the [OAK](https://incatools.github.io/ontology-access-kit/)
+Additionally, some knowledge of ontologies like cl and the capabilities of the [OAK](https://incatools.github.io/ontology-access-kit/)
 will help.
 
 ## Initializing the project
@@ -135,9 +135,9 @@ But this time we will give an agent a *tool*
 
 ```python
 @oak_agent.tool_plain
-async def search_uberon(term: str) -> List[Tuple[str, str]]:
+async def search_cl(term: str) -> List[Tuple[str, str]]:
     """
-    Search the UBERON ontology for a term.
+    Search the cl ontology for a term.
 
     Note that search should take into account synonyms, but synonyms may be incomplete,
     so if you cannot find a concept of interest, try searching using related or synonymous
@@ -150,21 +150,21 @@ async def search_uberon(term: str) -> List[Tuple[str, str]]:
         term: The term to search for.
 
     Returns:
-        A list of tuples, each containing an UBERON ID and a label.
+        A list of tuples, each containing an cl ID and a label.
     """
-    adapter = get_adapter("ols:uberon")
+    adapter = get_adapter("ols:cl")
     results = adapter.basic_search(term)
     labels = list(adapter.labels(results))
     print(f"## Query: {term} -> {labels}")
     return labels
 ```
 
-Here we are using the OAK OLS adapter, configured to query [Uberon on OLS](https://www.ebi.ac.uk/ols4/ontologies/uberon)
+Here we are using the OAK OLS adapter, configured to query [cl on OLS](https://www.ebi.ac.uk/ols4/ontologies/cl)
 
 We can test this with
 
 ```python
-query = "What is the UBERON ID for the CNS?"
+query = "What is the cl ID for the CNS?"
 result = oak_agent.run_sync(query)
 ```
 
@@ -185,12 +185,12 @@ We will create a bespoke data model for this agent:
 ```python
 class TextAnnotation(BaseModel):
     """
-    A text annotation is a span of text and the UBERON ID and label for the anatomical structure it mentions.
-    Use `text` for the source text, and `uberon_id` and `uberon_label` for the UBERON ID and label of the anatomical structure in the ontology.
+    A text annotation is a span of text and the cl ID and label for the cell type it mentions.
+    Use `text` for the source text, and `cl_id` and `cl_label` for the cl ID and label of the cell type in the ontology.
     """
     text: str
-    uberon_id: Optional[str] = None
-    uberon_label: Optional[str] = None
+    cl_id: Optional[str] = None
+    cl_label: Optional[str] = None
 
 class TextAnnotationResult(BaseModel):
     annotations: List[TextAnnotation]
@@ -202,15 +202,15 @@ Now we'll create an agent:
 annotator_agent = Agent(  
     'claude-3-7-sonnet-latest',
     system_prompt="""
-    Extract all uberon terms from the text. Return the as a list of annotations.
-    Be sure to include all spans mentioning anatomical structures; if you cannot
-    find a UBERON ID, then you should still return a TextAnnotation, just leave
-    the uberon_id field empty.
+    Extract all cl terms from the text. Return the as a list of annotations.
+    Be sure to include all spans mentioning cell types; if you cannot
+    find a cl ID, then you should still return a TextAnnotation, just leave
+    the cl_id field empty.
 
     However, before giving up you should be sure to try different combinations of
-    synonyms with the `search_uberon` tool.
+    synonyms with the `search_cl` tool.
     """,
-    tools=[search_uberon],
+    tools=[search_cl],
     result_type=TextAnnotationResult,  
 )
 ```
